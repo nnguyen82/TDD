@@ -13,7 +13,6 @@ namespace TestTDD
 
         public TestRefactorCycle()
         {
-            //setup our DI scan using Scruptor
             var serviceCollection = new ServiceCollection()
                 .Scan(scan => scan
                 .FromAssemblyOf<ISaleRules>()
