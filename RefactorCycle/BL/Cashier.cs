@@ -19,7 +19,14 @@ namespace RefactorCycle.BL
 
         public bool SaleTicket(int amount)
         {
-            return _serviceProvider.GetServices<ISaleRules>().ToList().FirstOrDefault(s => s.IsMatch(amount)).CanSale();
+            var sale = _serviceProvider.GetServices<ISaleRules>().ToList().FirstOrDefault(s => s.IsMatch(amount));
+
+            if(sale == null)
+            {
+                return false;
+            }
+
+            return sale.CanSale();
         }
     }
 }
