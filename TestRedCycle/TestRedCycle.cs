@@ -40,6 +40,19 @@ namespace TestRedCycle
         {
             //Arrange
             int amount = 10;
+
+            //Act
+            var actual = _cashier.SaleTicket(amount);
+
+            //Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void BuyerWithTenDollarWithChange()
+        {
+            //Arrange
+            int amount = 10;
             _cashier.SaleTicket(5); //Sale with $5 first
 
             //Act
@@ -51,6 +64,19 @@ namespace TestRedCycle
 
         [Fact]
         public void BuyerWithTwentyDollar()
+        {
+            //Arrange
+            int amount = 20;
+
+            //Act
+            var actual = _cashier.SaleTicket(amount);
+
+            //Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void BuyerWithTwentyDollarWithChange()
         {
             //Arrange
             int amount = 20;
@@ -118,6 +144,31 @@ namespace TestRedCycle
 
             //Assert
             Assert.True(actual);
+        }
+
+        [Fact]
+        public void MultipleBuyersSuccessAndFail()
+        {
+            //Arrange
+            int[] buyers = { 10, 5, 5, 10, 5, 20 };
+            List<bool> expected = new List<bool>();
+            expected.Add(false);
+            expected.Add(true);
+            expected.Add(true);
+            expected.Add(true);
+            expected.Add(true);
+            expected.Add(true);
+
+            //Act
+            List<bool> actual = new List<bool>();
+
+            foreach (int b in buyers)
+            {
+                actual.Add(_cashier.SaleTicket(b));
+            }
+
+            //Assert
+            Assert.Equal(expected, actual);
         }
     }
 }

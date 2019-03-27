@@ -8,10 +8,10 @@ namespace RefactorCycle.BL.Rules
 {
     public class TenDollarRule : ISaleRules
     {
-        private readonly IRepository _repository;
-        public TenDollarRule(IRepository repository)
+        private readonly ICashRegister _cashRegister;
+        public TenDollarRule(ICashRegister cashRegister)
         {
-            _repository = repository;
+            _cashRegister = cashRegister;
         }
 
         public bool CanSale()
@@ -19,10 +19,10 @@ namespace RefactorCycle.BL.Rules
             //Check if there is a $5 dollar change available
             //If Yes, remove $5 bill from the data store and add the $10 to the store. Return true.
 
-            if (_repository.FindBill(Dollar.FiveDollar) > 0)
+            if (_cashRegister.FindBill(Dollar.FiveDollar) > 0)
             {
-                _repository.RemoveBill(Dollar.FiveDollar);
-                _repository.AddBill(Dollar.TenDollar);
+                _cashRegister.RemoveBill(Dollar.FiveDollar);
+                _cashRegister.AddBill(Dollar.TenDollar);
 
                 return true;
             }

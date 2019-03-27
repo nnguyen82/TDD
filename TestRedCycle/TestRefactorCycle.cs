@@ -19,8 +19,8 @@ namespace TestTDD
                 .AddClasses(classes => classes.AssignableTo<ISaleRules>())
                 .AsSelfWithInterfaces()
                 .WithScopedLifetime()
-                .FromAssemblyOf<IRepository>()
-                .AddClasses(classes => classes.AssignableTo<IRepository>())
+                .FromAssemblyOf<ICashRegister>()
+                .AddClasses(classes => classes.AssignableTo<ICashRegister>())
                 .AsSelfWithInterfaces()
                 .WithScopedLifetime()
                 .FromAssemblyOf<ICashier>()
@@ -54,6 +54,19 @@ namespace TestTDD
         {
             //Arrange
             int amount = 10;
+
+            //Act
+            var actual = _cashier.SaleTicket(amount);
+
+            //Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void BuyerWithTenDollarWithChange()
+        {
+            //Arrange
+            int amount = 10;
             _cashier.SaleTicket(5); //Sale with $5 first
 
             //Act
@@ -68,10 +81,23 @@ namespace TestTDD
         {
             //Arrange
             int amount = 20;
+
+            //Act
+            var actual = _cashier.SaleTicket(amount);
+
+            //Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void BuyerWithTwentyDollarWithChange()
+        {
+            //Arrange
+            int amount = 20;
             //Sale with $5, $5 & $10 first
             _cashier.SaleTicket(5);
             _cashier.SaleTicket(5);
-            _cashier.SaleTicket(10); 
+            _cashier.SaleTicket(10);
 
             //Act
             var actual = _cashier.SaleTicket(amount);
@@ -132,32 +158,6 @@ namespace TestTDD
 
             //Assert
             Assert.True(actual);
-        }
-
-        [Fact]
-        public void FailWithTenDollar()
-        {
-            //Arrange
-            int amount = 10;
-
-            //Act
-            var actual = _cashier.SaleTicket(amount);
-
-            //Assert
-            Assert.False(actual);
-        }
-
-        [Fact]
-        public void FailWithTwentyDollar()
-        {
-            //Arrange
-            int amount = 20;
-
-            //Act
-            var actual = _cashier.SaleTicket(amount);
-
-            //Assert
-            Assert.False(actual);
         }
 
         [Fact]

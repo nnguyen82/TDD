@@ -8,15 +8,15 @@ namespace RefactorCycle.BL.Rules
 {
     public class FiveDollarRule : ISaleRules
     {
-        private readonly IRepository _repository;
-        public FiveDollarRule(IRepository repository)
+        private readonly ICashRegister _cashRegister;
+        public FiveDollarRule(ICashRegister cashRegister)
         {
-            _repository = repository;
+            _cashRegister = cashRegister;
         }
         public bool CanSale()
         {
             //Add $5 to data store
-            _repository.AddBill(Dollar.FiveDollar);
+            _cashRegister.AddBill(Dollar.FiveDollar);
 
             return true;
         }

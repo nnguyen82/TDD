@@ -8,10 +8,10 @@ namespace RefactorCycle.BL.Rules
 {
     public class TwentyDollarRule : ISaleRules
     {
-        private readonly IRepository _repository;
-        public TwentyDollarRule(IRepository repository)
+        private readonly ICashRegister _cashRegister;
+        public TwentyDollarRule(ICashRegister cashRegister)
         {
-            _repository = repository;
+            _cashRegister = cashRegister;
         }
 
         public bool CanSale()
@@ -21,23 +21,21 @@ namespace RefactorCycle.BL.Rules
             //Else return false.
             bool bReturn = false;
 
-            if (_repository.FindBill(Dollar.TenDollar) > 0 && _repository.FindBill(Dollar.FiveDollar) > 0)
+            if (_cashRegister.FindBill(Dollar.TenDollar) > 0 && _cashRegister.FindBill(Dollar.FiveDollar) > 0)
             {
-                _repository.RemoveBill(Dollar.FiveDollar);
-                _repository.RemoveBill(Dollar.TenDollar);
+                _cashRegister.RemoveBill(Dollar.FiveDollar);
+                _cashRegister.RemoveBill(Dollar.TenDollar);
 
                 bReturn = true;
             }
-            else if(_repository.FindBill(Dollar.FiveDollar) > 2)
+            else if(_cashRegister.FindBill(Dollar.FiveDollar) > 2)
             {
-                _repository.RemoveBill(Dollar.FiveDollar);
-                _repository.RemoveBill(Dollar.FiveDollar);
-                _repository.RemoveBill(Dollar.FiveDollar);
+                _cashRegister.RemoveBill(Dollar.FiveDollar, 3);
 
                 bReturn = true;
             }
 
-            _repository.AddBill(Dollar.TwentyDollar);
+            _cashRegister.AddBill(Dollar.TwentyDollar);
 
             return bReturn;
         }

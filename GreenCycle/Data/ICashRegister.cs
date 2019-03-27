@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RefactorCycle.Data
+namespace GreenCycle.Data
 {
-    public interface IRepository
+    public interface ICashRegister
     {
         bool AddBill(int amount);
         bool RemoveBill(int amount);

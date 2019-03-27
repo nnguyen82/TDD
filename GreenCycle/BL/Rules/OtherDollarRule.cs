@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenCycle.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,12 @@ namespace GreenCycle.BL.Rules
 {
     public class OtherDollarRule : ISaleRules
     {
+        private readonly ICashRegister _cashRegister;
+        public OtherDollarRule(ICashRegister cashRegister)
+        {
+            _cashRegister = cashRegister;
+        }
+
         public bool CanSale(int amount)
         {
             //Can't sale

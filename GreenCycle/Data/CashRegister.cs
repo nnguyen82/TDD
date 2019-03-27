@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace RefactorCycle.Data
+namespace GreenCycle.Data
 {
-    public class Repository : IRepository
+    public class CashRegister : ICashRegister
     {
         private List<int> _billStore;
-        public Repository()
+        public CashRegister()
         {
             _billStore = new List<int>();
         }
