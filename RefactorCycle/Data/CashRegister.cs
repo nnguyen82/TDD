@@ -27,7 +27,14 @@ namespace RefactorCycle.Data
 
         public int FindBill(int amount)
         {
-            return _billStore.Where(w => w == amount).Count();
+            try
+            {
+                return _billStore.Where(w => w == amount).Count();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool RemoveBill(int amount)
